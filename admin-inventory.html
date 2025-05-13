@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Bazar | Bachelor Meal System</title>
+  <style>
+    :root {
+      --light-bg: #F3F3E0;
+      --primary: #27548A;
+      --dark-primary: #183B4E;
+      --accent: #DDA853;
+      --glass-bg: rgba(255, 255, 255, 0.15);
+      --glass-border: rgba(255, 255, 255, 0.2);
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      background-color: var(--light-bg);
+      color: var(--dark-primary);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* Navigation Bar */
+    nav.glass-card {
+      width: 100%;
+      border-radius: 0;
+      margin-top: 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .nav-logo {
+      font-weight: bold;
+      font-size: 1.5rem;
+      text-decoration: none;
+      color: var(--primary);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--dark-primary);
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* Glass Card */
+    .glass-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 1rem;
+      padding: 2rem;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+      width: 90%;
+      max-width: 1200px;
+      margin: 1rem auto;
+    }
+
+    /* Section Headings */
+    .section-heading {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: var(--primary);
+      font-size: 2rem;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+
+    .section-heading::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: var(--accent);
+    }
+
+    /* Tables */
+    .inventory-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+
+    .inventory-table th {
+      background: var(--primary);
+      color: white;
+      text-align: left;
+      padding: 1rem;
+    }
+
+    .inventory-table td {
+      padding: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .inventory-table tr:nth-child(even) {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .inventory-table tr:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Buttons */
+    .button {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      border-radius: 25px;
+      text-decoration: none;
+      color: white;
+      background-color: var(--primary);
+      transition: all 0.3s ease;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      background-color: var(--dark-primary);
+      transform: translateY(-2px);
+    }
+
+    .btn-accent {
+      background-color: var(--accent);
+      color: var(--dark-primary);
+    }
+
+    .btn-accent:hover {
+      background-color: #c49344;
+    }
+
+    .btn-sm {
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+    }
+
+    /* Status Badges */
+    .badge {
+      padding: 0.35rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      display: inline-block;
+    }
+
+    .badge-pending {
+      background-color: rgba(255, 193, 7, 0.2);
+      color: #ff9800;
+    }
+
+    .badge-approved {
+      background-color: rgba(76, 175, 80, 0.2);
+      color: #4caf50;
+    }
+
+    .badge-rejected {
+      background-color: rgba(244, 67, 54, 0.2);
+      color: #f44336;
+    }
+
+    /* Change Indicators */
+    .change-positive {
+      color: #4caf50;
+    }
+
+    .change-negative {
+      color: #f44336;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .nav-container {
+        flex-direction: column;
+        padding: 1rem;
+      }
+
+      .nav-links {
+        margin-top: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .section-heading {
+        font-size: 1.75rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .section-heading {
+        font-size: 1.5rem;
+      }
+      
+      .inventory-table {
+        display: block;
+        overflow-x: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="glass-card">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">Meal Manager</a>
+      <div class="nav-links">
+        <a href="admin-dashboard.html">Dashboard</a>
+        <!-- <a href="admin-payments.html">Payments</a> -->
+        <a href="admin-inventory.html" class="active">Inventory</a>
+        <a href="admin-members.html">Members</a>
+        <a href="logout.html">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="glass-card">
+    <h2 class="section-heading">Pending Inventory Updates</h2>
+    
+    <table class="inventory-table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Current Qty</th>
+          <th>Change (+/-)</th>
+          <th>Requested By</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Rice</td>
+          <td>3.5 kg</td>
+          <td class="change-positive">+1.5 kg</td>
+          <td>Karim</td>
+          <td>May 16, 2025</td>
+          <td><span class="badge badge-pending">Pending</span></td>
+          <td>
+            <button class="button btn-sm">Approve</button>
+            <button class="button btn-sm btn-accent">Reject</button>
+          </td>
+        </tr>
+        <tr>
+          <td>Eggs</td>
+          <td>6 pieces</td>
+          <td class="change-positive">+6 pieces</td>
+          <td>Fatima</td>
+          <td>May 15, 2025</td>
+          <td><span class="badge badge-pending">Pending</span></td>
+          <td>
+            <button class="button btn-sm">Approve</button>
+            <button class="button btn-sm btn-accent">Reject</button>
+          </td>
+        </tr>
+        <tr>
+          <td>Onions</td>
+          <td>1 kg</td>
+          <td class="change-negative">-0.5 kg</td>
+          <td>John</td>
+          <td>May 17, 2025</td>
+          <td><span class="badge badge-pending">Pending</span></td>
+          <td>
+            <button class="button btn-sm">Approve</button>
+            <button class="button btn-sm btn-accent">Reject</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="glass-card">
+    <h2 class="section-heading">Current Inventory</h2>
+    
+    <table class="inventory-table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Current Quantity</th>
+          <th>Last Updated</th>
+          <th>Updated By</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Rice</td>
+          <td>3.5 kg</td>
+          <td>May 10, 2025</td>
+          <td>Ali</td>
+        </tr>
+        <tr>
+          <td>Oil</td>
+          <td>1.2 L</td>
+          <td>May 12, 2025</td>
+          <td>John</td>
+        </tr>
+        <tr>
+          <td>Eggs</td>
+          <td>6 pieces</td>
+          <td>May 14, 2025</td>
+          <td>Rahim</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    // Approve/Reject Inventory Updates
+    document.querySelectorAll('.button').forEach(btn => {
+      if (btn.textContent === 'Approve' && !btn.disabled) {
+        btn.addEventListener('click', function() {
+          const row = this.closest('tr');
+          const itemName = row.querySelector('td:first-child').textContent;
+          const changeCell = row.querySelector('td:nth-child(3)');
+          const changeText = changeCell.textContent;
+          const statusCell = row.querySelector('td:nth-child(6)');
+          
+          statusCell.innerHTML = '<span class="badge badge-approved">Approved</span>';
+          row.querySelectorAll('button').forEach(b => b.disabled = true);
+          
+          alert(`Inventory update approved for ${itemName} (${changeText})`);
+        });
+      }
+      
+      if (btn.textContent === 'Reject' && !btn.disabled) {
+        btn.addEventListener('click', function() {
+          const row = this.closest('tr');
+          const itemName = row.querySelector('td:first-child').textContent;
+          const changeText = row.querySelector('td:nth-child(3)').textContent;
+          const statusCell = row.querySelector('td:nth-child(6)');
+          
+          if (confirm(`Reject inventory change for ${itemName} (${changeText})?`)) {
+            statusCell.innerHTML = '<span class="badge badge-rejected">Rejected</span>';
+            row.querySelectorAll('button').forEach(b => b.disabled = true);
+            alert(`Inventory change for ${itemName} has been rejected`);
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>

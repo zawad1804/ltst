@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - Bachelor Meal System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="glass-card" style="background-color: var(--navbar-color);">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">Meal Manager</a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="login.html">Login</a>
+        <a href="signup.html">Signup</a>
+        <a href="index.html#features">Features</a>  <!-- Updated link -->
+        <a href="index.html#about">About</a>      <!-- Updated link -->
+      </div>
+    </div>
+  </nav>
+
+  <main class="center-container">
+    <section class="glass-card centered-form">
+      <h2>Login</h2>
+      <form action="process_login.php" method="post">
+        <label for="role">Role:</label>
+        <select name="role" id="role">
+          <option value="member">Member</option>
+          <option value="admin">Admin</option>
+        </select>
+
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" required>
+
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" required>
+
+        <button type="submit">Login</button>
+      </form>
+      <p>Don't have an account? <a href="signup.html">Signup</a></p>
+    </section>
+  </main>
+</body>
+</html>

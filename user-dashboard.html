@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Dashboard | Bachelor Meal System</title>
+  <style>
+    :root {
+      --light-bg: #F3F3E0;
+      --primary: #27548A;
+      --dark-primary: #183B4E;
+      --accent: #DDA853;
+      --glass-bg: rgba(255, 255, 255, 0.15);
+      --glass-border: rgba(255, 255, 255, 0.2);
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      background-color: var(--light-bg);
+      color: var(--dark-primary);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* Navigation Bar */
+    nav.glass-card {
+      width: 100%;
+      border-radius: 0;
+      margin-top: 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .nav-logo {
+      font-weight: bold;
+      font-size: 1.5rem;
+      text-decoration: none;
+      color: var(--primary);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--dark-primary);
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* Glass Card */
+    .glass-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 1rem;
+      padding: 2rem;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+      width: 90%;
+      max-width: 1200px;
+      margin: 1rem auto;
+    }
+
+    /* Dashboard Container */
+    .dashboard-container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    /* Dashboard Header */
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .dashboard-header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      color: var(--primary);
+    }
+
+    .user-name {
+      color: var(--accent);
+    }
+
+    .current-date {
+      font-size: 1rem;
+      color: var(--dark-primary);
+      opacity: 0.8;
+    }
+
+    /* Section Headings */
+    .section-heading {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: var(--primary);
+      font-size: 1.5rem;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+
+    .section-heading::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: var(--accent);
+    }
+
+    /* Notifications Section */
+    .notification {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .notification.emergency {
+      border-left: 4px solid #ff6b6b;
+    }
+
+    .notification.reminder {
+      border-left: 4px solid var(--accent);
+    }
+
+    .notification-icon {
+      font-size: 1.5rem;
+    }
+
+    .notification-content {
+      flex: 1;
+    }
+
+    .notification-content h3 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.1rem;
+    }
+
+    .notification-content p {
+      margin: 0;
+      opacity: 0.9;
+    }
+
+    .notification-time {
+      font-size: 0.8rem;
+      opacity: 0.7;
+      margin-top: 0.5rem;
+    }
+
+    /* Stats Overview */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .stat-card {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 1.5rem;
+      border-radius: 0.75rem;
+      text-align: center;
+      border-left: 4px solid var(--accent);
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: bold;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    /* Recent Meals Section */
+    .recent-meals-section {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .meals-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+
+    .meals-table th {
+      background-color: var(--primary);
+      color: white;
+      padding: 1rem;
+      text-align: left;
+    }
+
+    .meals-table td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .meals-table tr:nth-child(even) {
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .meals-table tr:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .view-all-container {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 1rem;
+    }
+
+    .view-all-button {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background-color: var(--accent);
+      color: var(--dark-primary);
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background-color 0.3s;
+    }
+
+    .view-all-button:hover {
+      background-color: #c49344;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .nav-container {
+        flex-direction: column;
+        padding: 1rem;
+      }
+
+      .nav-links {
+        margin-top: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .meals-table {
+        font-size: 0.9rem;
+      }
+      
+      .meals-table th, 
+      .meals-table td {
+        padding: 0.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .meals-table {
+        display: block;
+        overflow-x: auto;
+      }
+
+      .section-heading {
+        font-size: 1.3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="glass-card">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">Meal Manager</a>
+      <div class="nav-links">
+        <a href="user-dashboard.html" class="active">Dashboard</a>
+        <a href="meals.html">My Meals</a>
+        <a href="inventory.html">Inventory</a>
+        <a href="payments.html">Payments</a>
+        <a href="profile.html">Profile</a>
+        <a href="logout.html">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="dashboard-container">
+    <!-- Dashboard Header -->
+    <header class="dashboard-header">
+      <h1>Welcome, <span class="user-name">John Doe</span></h1>
+      <div class="current-date">May 15, 2025</div>
+    </header>
+
+    <!-- Notifications Section -->
+    <section class="glass-card notifications-section">
+      <h2 class="section-heading">Notifications</h2>
+      <div class="notification emergency">
+        <div class="notification-icon">🚨</div>
+        <div class="notification-content">
+          <h3>Emergency Alert</h3>
+          <p>Cook is absent today (May 15). Please arrange your own lunch.</p>
+          <div class="notification-time">10:30 AM</div>
+        </div>
+      </div>
+      <div class="notification reminder">
+        <div class="notification-icon">🛒</div>
+        <div class="notification-content">
+          <h3>Bazar Reminder</h3>
+          <p>Your grocery shopping turn is tomorrow (May 16).</p>
+          <div class="notification-time">Yesterday</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Overview -->
+    <section class="glass-card stats-section">
+      <h2 class="section-heading">Monthly Overview</h2>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value">24</div>
+          <div class="stat-label">Meals Taken</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">$72</div>
+          <div class="stat-label">Total Due</div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-value">May 16</div>
+          <div class="stat-label">Next Bazar</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recent Meals Section -->
+    <section class="glass-card recent-meals-section">
+      <h2 class="section-heading">Recent Meals</h2>
+      <table class="meals-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Meal Type</th>
+            <th>Meal</th>
+            <th>Quantity</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>May 14, 2025</td>
+            <td><span class="meal-type">Lunch</span></td>
+            <td>Fried Rice with Chicken</td>
+            <td>1 plate</td>
+            <td>$3.00</td>
+          </tr>
+          <tr>
+            <td>May 14, 2025</td>
+            <td><span class="meal-type">Dinner</span></td>
+            <td>Beef Curry with Roti</td>
+            <td>1 plate</td>
+            <td>$3.50</td>
+          </tr>
+          <tr>
+            <td>May 13, 2025</td>
+            <td><span class="meal-type">Lunch</span></td>
+            <td>Vegetable Khichuri</td>
+            <td>1 plate</td>
+            <td>$2.50</td>
+          </tr>
+          <tr>
+            <td>May 13, 2025</td>
+            <td><span class="meal-type">Dinner</span></td>
+            <td>Fish Curry with Rice</td>
+            <td>1 plate</td>
+            <td>$3.00</td>
+          </tr>
+          <tr>
+            <td>May 12, 2025</td>
+            <td><span class="meal-type">Breakfast</span></td>
+            <td>Paratha with Curry</td>
+            <td>2 pieces</td>
+            <td>$2.00</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="view-all-container">
+        <a href="meals.html" class="view-all-button">View All Meals</a>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

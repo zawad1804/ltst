@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bachelor Meal Management System</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Animation Effects */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes shimmer {
+        100% { left: 100%; }
+    }
+
+    /* Enhanced Container Styling */
+    .container {
+        animation: fadeIn 0.5s ease-in-out;
+    }
+
+    /* Enhanced Glass Card Effect */
+    .glass-card {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .glass-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.25);
+    }
+
+    /* Enhanced Button Styling */
+    .button {
+        padding: 0.7rem 1.5rem;
+        border-radius: 25px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        border: 2px solid transparent;
+        min-width: 120px;
+        letter-spacing: 0.5px;
+        position: relative;
+        overflow: hidden;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    .button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.2),
+            transparent
+        );
+        animation: shimmer 2s infinite;
+    }
+
+    /* Feature Items Enhancement */
+    .feature-item {
+        background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+        border-radius: 15px;
+        padding: 2rem;
+        transition: all 0.3s ease;
+    }
+
+    .feature-item:hover {
+        transform: translateY(-10px) scale(1.02);
+        box-shadow: 0 20px 40px rgba(31, 38, 135, 0.15);
+    }
+
+    /* Hero Section Enhancement */
+    .hero-section {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero-section::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(
+            circle,
+            rgba(255, 255, 255, 0.1) 0%,
+            transparent 70%
+        );
+        animation: rotate 20s linear infinite;
+    }
+
+    @keyframes rotate {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="glass-card">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">Meal Manager</a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="login.html">Login</a>
+        <a href="signup.html">Signup</a>
+        <!-- <a href="user-dashboard.html">User Dashboard</a>
+        <a href="admin-dashboard.html">Admin Dashboard</a> -->
+        <a href="#features">Features</a>
+        <a href="#about">About</a>
+      </div>
+    </div>
+  </nav>
+
+<!-- Hero Section -->
+<section class="glass-card hero-section">
+  <div class="hero-content">
+    <h1>Bachelor Meal Management System</h1>
+    <p class="hero-subtitle">Simplify your shared apartment life with our all-in-one meal management solution</p>
+    <div class="hero-buttons">
+      <a href="login.html" class="button">Login</a>
+      <a href="signup.html" class="button">Signup</a>
+    </div>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="glass-card" id="features">
+  <h2 class="section-heading">Key Features</h2>
+  <div class="features-list">
+    <div class="feature-item">
+      <h3>Meal Management</h3>
+      <p>Track daily meals, schedule cooking, and manage responsibilities.</p>
+    </div>
+    <div class="feature-item">
+      <h3>Bazar Rotation</h3>
+      <p>Automated grocery shopping rotation and tracking.</p>
+    </div>
+    <div class="feature-item">
+      <h3>Payment System</h3>
+      <p>Shared payments with admin approval and tracking.</p>
+    </div>
+    <div class="feature-item">
+      <h3>Meal Ratings</h3>
+      <p>Rate meals and provide feedback to improve quality.</p>
+    </div>
+  </div>
+</section>
+
+<!-- About Section -->
+<section class="glass-card" id="about">
+  <h2 class="section-heading">About Our System</h2>
+  <div class="about-content">
+    <p>Designed specifically for bachelor shared apartments, our system helps manage all aspects of communal living with a focus on meal management. Say goodbye to arguments about who should cook or shop next!</p>
+    <p>Our platform is secure, easy to use, and accessible from any device.</p>
+  </div>
+</section>
+</body>
+</html>

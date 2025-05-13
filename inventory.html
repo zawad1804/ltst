@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inventory | Bachelor Meal System</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Bazar Page Specific Styles */
+    .bazar-container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .bazar-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .bazar-header h1 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    .bazar-header p {
+      color: var(--dark-primary);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* Inventory Table */
+    .inventory-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 2rem;
+    }
+
+    .inventory-table th {
+      background: rgba(255, 255, 255, 0.3);
+      text-align: center;
+      padding: 1rem;
+      position: sticky;
+      top: 0;
+    }
+
+    .inventory-table td {
+      padding: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: center;
+    }
+
+    .inventory-table tr:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Action Buttons */
+    .action-btns {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .btn {
+      padding: 0.75rem 1.5rem;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--dark-primary);
+    }
+
+    .btn-secondary {
+      background: var(--glass-bg);
+      color: var(--dark-primary);
+      border: 1px solid var(--glass-border);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .inventory-table {
+        display: block;
+        overflow-x: auto;
+      }
+      
+      .action-btns {
+        flex-direction: column;
+      }
+      
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="glass-card">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">Meal Manager</a>
+      <div class="nav-links">
+        <a href="user-dashboard.html">Dashboard</a>
+        <a href="meals.html">My Meals</a>
+        <a href="inventory.html" class="active">Inventory</a>
+        <a href="payments.html">Payments</a>
+        <a href="profile.html">Profile</a>
+        <a href="logout.html">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="bazar-container">
+    <header class="bazar-header">
+      <h1>Bazar Inventory</h1>
+      <p>Track all grocery items, their current quantities, and purchase history. Update when new items are purchased or when quantities change.</p>
+    </header>
+
+    <section class="glass-card">
+      <table class="inventory-table">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Quantity Left</th>
+            <th>Last Purchased</th>
+            <th>Last Purchased By</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Rice</td>
+            <td>3.5 kg</td>
+            <td>May 10</td>
+            <td>All</td>
+          </tr>
+          <tr>
+            <td>Oil</td>
+            <td>1.2 L</td>
+            <td>May 12</td>
+            <td>John</td>
+          </tr>
+          <tr>
+            <td>Eggs</td>
+            <td>6 pieces</td>
+            <td>May 14</td>
+            <td>Rahim</td>
+          </tr>
+          <tr>
+            <td>Potatoes</td>
+            <td>2 kg</td>
+            <td>May 13</td>
+            <td>Karim</td>
+          </tr>
+          <tr>
+            <td>Chicken</td>
+            <td>0.5 kg</td>
+            <td>May 15</td>
+            <td>Alex</td>
+          </tr>
+          <tr>
+            <td>Onions</td>
+            <td>1 kg</td>
+            <td>May 11</td>
+            <td>All</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="action-btns">
+        <button class="btn btn-primary">Add New Item</button>
+        <button class="btn btn-secondary">Update Quantities</button>
+        <button class="btn btn-secondary">View Purchase History</button>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

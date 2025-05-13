@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payments | Bachelor Meal System</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Payments Page Specific Styles */
+    .payments-container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    .payments-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .payments-header h1 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    /* Payment Summary Cards */
+    .summary-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .summary-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .summary-card h3 {
+      margin-top: 0;
+      color: var(--dark-primary);
+    }
+
+    .summary-card .amount {
+      font-size: 2rem;
+      font-weight: bold;
+      margin: 0.5rem 0;
+    }
+
+    .due {
+      color: #e74c3c;
+    }
+
+    .paid {
+      color: #2ecc71;
+    }
+
+    /* Payment Form */
+    .payment-form {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 10px;
+      padding: 2rem;
+      margin-top: 2rem;
+    }
+
+    .payment-form h2 {
+      margin-top: 0;
+      color: var(--primary);
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border-radius: 5px;
+      border: 1px solid var(--glass-border);
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--dark-primary);
+    }
+
+    .payment-methods {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .payment-method {
+      flex: 1;
+      min-width: 120px;
+    }
+
+    .payment-method input[type="radio"] {
+      display: none;
+    }
+
+    .payment-method label {
+      display: block;
+      padding: 0.75rem;
+      border: 1px solid var(--glass-border);
+      border-radius: 5px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .payment-method input[type="radio"]:checked + label {
+      border-color: var(--primary);
+      background: rgba(46, 204, 113, 0.1);
+    }
+
+    .btn {
+      padding: 0.75rem 1.5rem;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--dark-primary);
+    }
+
+    /* Payment History */
+    .payment-history {
+      margin-top: 3rem;
+    }
+
+    .history-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+
+    .history-table th {
+      background: rgba(255, 255, 255, 0.3);
+      text-align: left;
+      padding: 1rem;
+    }
+
+    .history-table td {
+      padding: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .status-paid {
+      color: #2ecc71;
+      font-weight: 500;
+    }
+
+    .status-pending {
+      color: #f39c12;
+      font-weight: 500;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .summary-cards {
+        grid-template-columns: 1fr;
+      }
+      
+      .payment-methods {
+        flex-direction: column;
+      }
+      
+      .history-table {
+        display: block;
+        overflow-x: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="glass-card">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo">Meal Manager</a>
+      <div class="nav-links">
+        <a href="user-dashboard.html">Dashboard</a>
+        <a href="meals.html">My Meals</a>
+        <a href="inventory.html">Inventory</a>
+        <a href="payments.html" class="active">Payments</a>
+        <a href="profile.html">Profile</a>
+        <a href="logout.html">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="payments-container">
+    <header class="payments-header">
+      <h1>Payment Management</h1>
+      <p>View your payment status, make new payments, and track payment history</p>
+    </header>
+
+    <section class="summary-cards">
+      <div class="summary-card glass-card">
+        <h3>Total Due</h3>
+        <div class="amount due">$45.50</div>
+        <p>For May 2025</p>
+      </div>
+      <div class="summary-card glass-card">
+        <h3>Total Paid</h3>
+        <div class="amount paid">$30.00</div>
+        <p>Current balance</p>
+      </div>
+      <div class="summary-card glass-card">
+        <h3>Remaining</h3>
+        <div class="amount due">$15.50</div>
+        <p>Payment due by May 30</p>
+      </div>
+    </section>
+
+    <section class="payment-form glass-card">
+      <h2>Make a Payment</h2>
+      <form id="paymentForm">
+        <div class="form-group">
+          <label for="paymentAmount">Payment Amount ($)</label>
+          <input type="number" id="paymentAmount" class="form-control" min="1" step="0.01" placeholder="15.50" required>
+        </div>
+
+        <div class="form-group">
+          <label>Payment Method</label>
+          <div class="payment-methods">
+            <div class="payment-method">
+              <input type="radio" id="cash" name="paymentMethod" value="cash" checked>
+              <label for="cash">Cash</label>
+            </div>
+            <div class="payment-method">
+              <input type="radio" id="bkash" name="paymentMethod" value="bkash">
+              <label for="bkash">bKash</label>
+            </div>
+            <div class="payment-method">
+              <input type="radio" id="nagad" name="paymentMethod" value="nagad">
+              <label for="nagad">Nagad</label>
+            </div>
+            <div class="payment-method">
+              <input type="radio" id="card" name="paymentMethod" value="card">
+              <label for="card">Card</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group" id="transactionIdGroup">
+          <label for="transactionId">Transaction ID</label>
+          <input type="text" id="transactionId" class="form-control" placeholder="Enter transaction ID">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit Payment</button>
+      </form>
+    </section>
+
+    <section class="payment-history">
+      <h2>Payment History</h2>
+      <table class="history-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Amount</th>
+            <th>Method</th>
+            <th>Transaction ID</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>May 15, 2025</td>
+            <td>$20.00</td>
+            <td>bKash</td>
+            <td>BK123456789</td>
+            <td class="status-paid">Paid</td>
+          </tr>
+          <tr>
+            <td>May 5, 2025</td>
+            <td>$10.00</td>
+            <td>Cash</td>
+            <td>-</td>
+            <td class="status-paid">Paid</td>
+          </tr>
+          <tr>
+            <td>May 1, 2025</td>
+            <td>$15.50</td>
+            <td>Nagad</td>
+            <td>NG987654321</td>
+            <td class="status-pending">Pending</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <script>
+    // Show/hide transaction ID field based on payment method
+    document.querySelectorAll('input[name="paymentMethod"]').forEach(radio => {
+      radio.addEventListener('change', function() {
+        const transactionIdGroup = document.getElementById('transactionIdGroup');
+        if (this.value === 'cash') {
+          transactionIdGroup.style.display = 'none';
+          document.getElementById('transactionId').required = false;
+        } else {
+          transactionIdGroup.style.display = 'block';
+          document.getElementById('transactionId').required = true;
+        }
+      });
+    });
+
+    // Initialize to hide transaction ID if cash is selected
+    document.addEventListener('DOMContentLoaded', function() {
+      if (document.getElementById('cash').checked) {
+        document.getElementById('transactionIdGroup').style.display = 'none';
+      }
+    });
+
+    // Form submission handling
+    document.getElementById('paymentForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Payment submitted successfully!');
+      this.reset();
+      // In a real app, you would send this data to your backend
+    });
+  </script>
+</body>
+</html>
